@@ -92,11 +92,11 @@
 
       ;; turn tioga-mode on
       (progn
-        ())
+        (yas-activate-extra-mode 'tioga-mode))
     
-    ;; turn mesa-minor-mode off
+    ;; turn tioga-mode off
     (progn
-      ()))
+      (yas-deactivate-extra-mode 'tioga-mode)))
 
   ;; the group
   :group 'tioga)

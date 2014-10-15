@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: mrh
+# key: mrh
+# --
+
+t.def_figure('history') { plot_history }
+
+def plot_history
+
+  # this assumes a MESALogDir object named @m
+  d = @m.history
+
+  $0
+
+end

@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: mrps
+# key: mrps
+# --
+
+t.def_figure('profiles') { plot_profiles(@m.model_numbers) }
+
+def plot_profiles(models)
+
+  # this assumes a MESALogDir object named @m
+  models.each do |model|
+    d = @m.profile_data('model_number' => model)
+  end
+
+end

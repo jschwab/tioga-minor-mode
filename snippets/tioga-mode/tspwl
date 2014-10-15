@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: tspwl
+# key: tspwl
+# --
+
+t.show_plot_with_legend('plot_right_margin' => 0.0,
+                        'legend_left_margin' => 0.1,
+                        'legend_top_margin' => 0.1,
+                        'legend_scale' => 1.4) do
+  $0
+end
+

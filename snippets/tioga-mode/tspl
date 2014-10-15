@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: tspl
+# key: tspl
+# --
+
+$0
+t.show_polyline(xs, ys, Black, '$1', LINE_TYPE_SOLID)

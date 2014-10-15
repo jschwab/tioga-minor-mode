@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: def_figure
+# key: df
+# --
+t.def_figure("$1") { $0 }

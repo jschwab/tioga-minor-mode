@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: tsm
+# key: tsm
+# --
+
+t.show_marker('xs' => [$1], 
+              'ys' => [$2],
+              'marker' => Circle,
+              'scale' => 0.5,
+              'color' => Black)

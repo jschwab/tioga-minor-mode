@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: tsp
+# key: tsp
+# --
+
+t.show_plot([$1,$2,$4,$3]) do
+  $0
+  t.show_polyline(xs, ys, Black, '$5', LINE_TYPE_SOLID)
+end
+
+t.do_box_labels(nil, '$6', '$7')

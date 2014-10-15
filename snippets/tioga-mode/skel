@@ -1,0 +1,22 @@
+# -*- mode: snippet -*-
+# name: skel
+# key: skel
+# --
+class $1
+
+  include Tioga
+  include FigureContants
+
+  def t
+    @figure_maker
+  end
+
+  def initialize
+    @figure_maker = FigureMaker.default
+    $0
+  end
+
+end
+
+$1.new
+
