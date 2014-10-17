@@ -41,6 +41,10 @@
   :prefix "tioga-"
   :group 'tioga)
 
+(defcustom tioga-ac-directory
+  nil
+  "Location of Tioga-mode specific autocomplete dictionaries"
+  :group 'tioga)
 
 (defconst tioga~alignment-options
   '("ALIGNED_AT_BASELINE" "ALIGNED_AT_BOTTOM" "ALIGNED_AT_MIDHEIGHT" "ALIGNED_AT_TOP"))
@@ -56,6 +60,24 @@
    tioga~alignment-options
    tioga~justification-options
    tioga~line-options))
+
+(defun tioga~read-completions (filename)
+  "Return a list of completions from a file filename."
+  (with-temp-buffer
+    (insert-file-contents (concat (file-name-as-directory tioga-ac-directory) filename))
+    (split-string (buffer-string) "\n" t)))
+
+(defconst ac-source-tioga-colors
+  '((candidates . tioga-color-completions)
+    (prefix . "'color' => \\(.*\\)")))
+
+(defconst ac-source-tioga-markers
+  '((candidates . tioga-marker-completions)
+    (prefix . "'marker' => \\(.*\\)")))
+
+(defconst ac-source-tioga-figure-maker
+  '((candidates . tioga-figure-maker-completions)
+    (prefix . "t\.\\(.*\\)")))
 
 (defun tioga~next-element (element list)
   "Return the next element (cyclically) in list after element"
@@ -77,6 +99,21 @@
             (delete-region (car bounds) (cdr bounds))
             (insert option))))))
 
+(defun tioga~setup-ac()
+  (progn
+    (defvar tioga-color-completions (tioga~read-completions "ColorConstants"))
+    (add-to-list 'ac-sources 'ac-source-tioga-colors)
+    (defvar tioga-figure-maker-completions (tioga~read-completions "FigureMaker"))
+    (add-to-list 'ac-sources 'ac-source-tioga-figure-maker)
+    (defvar tioga-marker-completions (tioga~read-completions "MarkerConstants"))
+    (add-to-list 'ac-sources 'ac-source-tioga-markers)))
+
+(defun tioga~cleanup-ac()
+  (progn
+    (setq ac-sources (delete 'ac-source-tioga-colors ac-sources))
+    (setq ac-sources (delete 'ac-source-tioga-figure-maker ac-sources))
+    (setq ac-sources (delete 'ac-source-tioga-markers ac-sources))))
+
 (define-minor-mode tioga-mode
   "Toggle Tioga minor mode in the usual way."
   :init-value nil
@@ -92,10 +129,14 @@
 
       ;; turn tioga-mode on
       (progn
+        (if tioga-ac-directory
+            (tioga~setup-ac))
         (yas-activate-extra-mode 'tioga-mode))
     
     ;; turn tioga-mode off
     (progn
+      (if tioga-ac-directory
+          (tioga~cleanup-ac))
       (yas-deactivate-extra-mode 'tioga-mode)))
 
   ;; the group
