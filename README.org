@@ -1,0 +1,37 @@
+* Tioga-mode
+An Emacs minor mode for use with the Tioga plotting package.
+* Installation
+** Prerequisites
+dash
+** Configure Emacs
+Put the .el file in your load-path and then add
+#+BEGIN_EXAMPLE
+(require 'tioga)
+#+END_EXAMPLE
+to your Emacs init file.
+
+If you want to use the snippets
+#+BEGIN_EXAMPLE
+(add-to-list 'yas-snippet-dirs "/path/to/tioga-minor-mode/snippets/")
+#+END_EXAMPLE
+
+If you want to use the autocomplete capabilities
+#+BEGIN_EXAMPLE
+(setq tioga-ac-directory "/path/to/tioga-minor-mode/autocomplete")
+#+END_EXAMPLE
+
+** Caveats
+I use this with Emacs 24.4 on Linux.  It is not tested anywhere else.
+Also, I'm not much of an elisp hacker, so you shouldn't take anything
+done here as representative of the "right way".
+* Usage
+** Start the Minor Mode
+You can toggle the minor-mode manually with
+#+BEGIN_EXAMPLE
+M-x tioga-mode
+#+END_EXAMPLE
+** Cycle Through Options
+The function tioga-cycle-option-at-point cycles through the valid
+tioga options at a point.  It determines what is valid based on the
+option type that is at point, so you need to have an existing option
+before this will work.  This function is bound to C-c C-t by default.
