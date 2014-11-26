@@ -77,7 +77,7 @@
 
 (defconst ac-source-tioga-figure-maker
   '((candidates . tioga-figure-maker-completions)
-    (prefix . "t\.\\(.*\\)")))
+    (prefix . "t\\.\\(.*\\)")))
 
 (defun tioga~next-element (element list)
   "Return the next element (cyclically) in list after element"
