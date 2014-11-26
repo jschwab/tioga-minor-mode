@@ -2,21 +2,43 @@
 # name: skel
 # key: skel
 # --
-class $1
+class MyPlots
 
+  include Math
   include Tioga
-  include FigureContants
+  include FigureConstants
+  include MyPlotStyles
 
   def t
     @figure_maker
   end
 
   def initialize
+
     @figure_maker = FigureMaker.default
+    t.def_enter_page_function { enter_page }
+
+    t.save_dir = 'plots'
+
+    t.def_figure('$1') do
+      ${1:$(s-snake-case (s-downcase yas-text))}
+    end
+
+  end
+
+  def enter_page
+    set_default_plot_style
+    t.default_enter_page_function
+  end
+
+  def ${1:$(s-snake-case (s-downcase yas-text))}
     $0
   end
 
 end
 
-$1.new
+MyPlots.new
 
+# Local Variables:
+# eval: (tioga-mode 1)
+# End:

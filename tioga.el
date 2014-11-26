@@ -114,6 +114,9 @@
     (setq ac-sources (delete 'ac-source-tioga-figure-maker ac-sources))
     (setq ac-sources (delete 'ac-source-tioga-markers ac-sources))))
 
+(defun tioga-compile()
+  (format "tioga %s -s" (if (buffer-file-name) (file-name-nondirectory (buffer-file-name)) "filename")))
+
 (define-minor-mode tioga-mode
   "Toggle Tioga minor mode in the usual way."
   :init-value nil
@@ -123,6 +126,7 @@
   :keymap
   '(
     ("\C-c\C-t" . tioga-cycle-option-at-point)
+    ("\C-c\C-c" . compile)
     )
   ;; the body
   (if tioga-mode
@@ -131,7 +135,8 @@
       (progn
         (if tioga-ac-directory
             (tioga~setup-ac))
-        (yas-activate-extra-mode 'tioga-mode))
+        (yas-activate-extra-mode 'tioga-mode)
+        (setq-local compile-command (tioga-compile)))
     
     ;; turn tioga-mode off
     (progn
